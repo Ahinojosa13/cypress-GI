@@ -104,3 +104,23 @@ Cypress.Commands.add('addAxeCode', () => {
     })
   })
 })
+
+Cypress.Commands.add('marksTodoAsCompleted', function (index) {
+  let cmd = Cypress.log({
+    name: 'marks todo as completed',
+    message: index,
+    consoleProps() {
+      return {
+        'Marked Todo as Completed': index,
+      }
+    },
+  })
+  const filter = function(){
+    const togglebttn = document.getElementByClass("toggle");
+    return (togglebttn.forEach(".todo-list li")
+  );
+  }
+  cy.get('.todo-list li', { log: false }).eq(index - 1).find(filter).click({ log: false })
+  cmd.set({ $el: cy.get('.todo-list li', { log: false }).eq(index - 1) }).snapshot().end();
+})
+
